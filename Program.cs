@@ -1,5 +1,9 @@
 ﻿using System;
+using System.Collections.Specialized;
+using System.Data.Common;
 using System.Numerics;
+using System.Text.RegularExpressions;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 namespace 扫雷Pro
 {
     class Program
@@ -33,6 +37,7 @@ namespace 扫雷Pro
                 boom = 10;
             }
         }
+
         public void setting()
         {
         start:
@@ -140,15 +145,23 @@ namespace 扫雷Pro
                 }
                 else if(input==5) {
                     int a = 0, b = 0;
-                    Console.WriteLine("请输入地图大小（x*y）：");
-                    string[] key = Console.ReadLine().Split("*");
-                    a = int.Parse(key[0]);
-                    b = int.Parse(key[1]);
-                    using (StreamWriter sw = File.CreateText("settings.conf"))
+                    string pattern = @"\d+\*\d+"; // 正则表达式模式
+                    string get = Console.ReadLine();
+                    string[] key = get.Split("*");
+                    if (key.Length == 2)
                     {
-                        sw.Write(a+" "+b+" "+boom);
+                        a = int.Parse(key[0]);
+                        b = int.Parse(key[1]);
+                        using (StreamWriter sw = File.CreateText("settings.conf"))
+                        {
+                            sw.Write(a + " " + b + " " + boom);
+                        }
+                        return;
                     }
-                    return;
+                    else
+                    {
+                        Console.WriteLine("输入错误，请重新输入");
+                    }
                 }
                 else
                 {
@@ -199,11 +212,18 @@ namespace 扫雷Pro
             while (true)
             {
                 int a=0, b=0;
-                string[] key= Console.ReadLine().Split(" ");
-                if (key.Length >= 2)
+                string pattern = @"^\d+\s\d+$"; // 正则表达式模式
+                string get = Console.ReadLine();
+                string[] key= get.Split(" ");
+                if (key.Length == 2&&Regex.IsMatch(get,pattern))
                 {
                     a = int.Parse(key[0]);
                     b = int.Parse(key[1]);
+                }
+                else
+                {
+                    Console.WriteLine("输入错误，请重新输入");
+                    continue;
                 }
                 if(a>x||b>y||a<1||b<1)
                 {
@@ -215,9 +235,10 @@ namespace 扫雷Pro
                     Console.Clear();
                     for(int i=1;i<=x;i++)
                     {
-                        for(int j=1;j<=y;j++)
-                        {
-                            if (booms[i, j] == 1) Console.Write("* ");
+                        for(int j=0;j<=y;j++)
+                        {   
+                            if(j==0)Console.Write(i + "\t");
+                            else if(booms[i, j] == 1) Console.Write("* ");
                             else Console.Write("0 ");
                         }
                         Console.WriteLine();
@@ -246,7 +267,7 @@ namespace 扫雷Pro
         public void about()
         {
             Console.Clear();
-            Console.WriteLine("扫雷Pro v1.0\n\n");
+            Console.WriteLine("扫雷Pro v1.1\n\n");
             Console.WriteLine("作者：SeimoDev");
             Console.WriteLine("官网：https://seimo.cn/\n");
             Console.WriteLine("按任意键返回...");
