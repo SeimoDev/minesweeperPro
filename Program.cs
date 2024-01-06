@@ -100,9 +100,9 @@ namespace 扫雷Pro
             Console.WriteLine("请选择地图大小\n\n");
             Console.WriteLine("当前大小：" + x + "*" + y+"\n\n");
             Console.WriteLine("1. 10*10");
-            Console.WriteLine("3. 20*20");
-            Console.WriteLine("4. 30*30");
-            Console.WriteLine("2. 40*40");
+            Console.WriteLine("2. 20*20");
+            Console.WriteLine("3. 30*30");
+            Console.WriteLine("4. 40*40");
             Console.WriteLine("5. 自定义");
             Console.WriteLine("6. 退出\n\n");
             Console.WriteLine("请输入序号：");
