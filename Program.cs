@@ -168,6 +168,7 @@ namespace 扫雷Pro
                 }
                 Console.WriteLine();
             }
+            Console.WriteLine("\n\n请输入坐标(a b)，如 2 3 ");
         }
         public void startGame()
         {
