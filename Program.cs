@@ -146,6 +146,7 @@ namespace 扫雷Pro
                 else if(input==5) {
                     int a = 0, b = 0;
                     string pattern = @"\d+\*\d+"; // 正则表达式模式
+                    Console.WriteLine("请输入地图大小（x*y）：");
                     string get = Console.ReadLine();
                     string[] key = get.Split("*");
                     if (key.Length == 2)
