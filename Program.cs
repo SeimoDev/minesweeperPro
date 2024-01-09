@@ -11,6 +11,7 @@ namespace 扫雷Pro
         int x;
         int y;
         int boom;
+        int mark;
         public void getSize()
         {
             //从settings.conf文件中读取两个整数作为x,y的值，若不存在文件则自动新建并写入"10 10"
@@ -55,7 +56,7 @@ namespace 扫雷Pro
                 {
                     using (StreamWriter sw = File.CreateText("settings.conf"))
                     {
-                        sw.Write(x + " " + y + " " + "10");
+                        sw.Write(x + " " + y + " " + (x*y/3));
                     }
                 }
                 goto start;
@@ -90,6 +91,7 @@ namespace 扫雷Pro
                     {
                         sw.Write(x + " " + y + " " + num);
                     }
+                    boom = num;
                     return;
                 }
             }
@@ -116,6 +118,8 @@ namespace 扫雷Pro
                     using (StreamWriter sw = File.CreateText("settings.conf"))
                     {
                         sw.Write("10 10 "+boom);
+                        x = 10;
+                        y = 10;
                     }
                     return;
                 }
@@ -124,6 +128,8 @@ namespace 扫雷Pro
                     using (StreamWriter sw = File.CreateText("settings.conf"))
                     {
                         sw.Write("20 20 " + boom);
+                        x = 20;
+                        y = 20;
                     }
                     return;
                 }
@@ -132,6 +138,8 @@ namespace 扫雷Pro
                     using (StreamWriter sw = File.CreateText("settings.conf"))
                     {
                         sw.Write("30 30 " + boom);
+                        x = 30;
+                        y = 30;
                     }
                     return;
                 }
@@ -140,6 +148,8 @@ namespace 扫雷Pro
                     using (StreamWriter sw = File.CreateText("settings.conf"))
                     {
                         sw.Write("40 40 " + boom);
+                        x = 40;
+                        y = 40;
                     }
                     return;
                 }
@@ -157,6 +167,8 @@ namespace 扫雷Pro
                         {
                             sw.Write(a + " " + b + " " + boom);
                         }
+                        x = a;
+                        y = b;
                         return;
                     }
                     else
@@ -188,6 +200,7 @@ namespace 扫雷Pro
         {
             Console.Clear();
             int num = 0;
+            mark = 0;
             int[,] booms = new int[x+2, y+2];
             string[,] map = new string[x + 2, y + 2];
             int tmp = boom;
@@ -251,6 +264,7 @@ namespace 扫雷Pro
                 else
                 {
                     num = 0;
+                    mark++;
                     for (int i = a - 1; i <= a + 1; i++)
                     {
                         for (int j = b - 1; j <= b + 1; j++)
@@ -260,6 +274,12 @@ namespace 扫雷Pro
                     }
                     map[a, b] = num.ToString();
                     show(map);
+                }
+                if (mark == x * y - boom)
+                {
+                    Console.WriteLine("恭喜你通关啦！\n\n按任意键返回...");
+                    Console.ReadKey();
+                    return;
                 }
             }
             
