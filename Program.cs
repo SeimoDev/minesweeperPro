@@ -288,7 +288,7 @@ namespace 扫雷Pro
         public void about()
         {
             Console.Clear();
-            Console.WriteLine("扫雷Pro v1.1\n\n");
+            Console.WriteLine("扫雷Pro v1.2\n\n");
             Console.WriteLine("作者：SeimoDev");
             Console.WriteLine("官网：https://seimo.cn/\n");
             Console.WriteLine("按任意键返回...");
